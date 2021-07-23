@@ -14,11 +14,11 @@ import com.phase3.stockone.entities.StockExchange;
 public interface CompanyRepository extends JpaRepository<Company, Long>{
 	public Company findBycompanyName(String companyName);
 	
-	@Query("SELECT m.companyName FROM Company m WHERE m.companyName LIKE %:companyName%")
-	List<String> findByLikeCompanyName(@Param("companyName") String companyName);
+	@Query("SELECT m FROM Company m WHERE m.companyName LIKE %:companyName%")
+	List<Company> findByLikeCompanyName(@Param("companyName") String companyName);
 	
-	@Query("Select c.companyName FROM Company c JOIN c.compstockmap p WHERE p.companyCode LIKE %:CompanyCode%")
-	List<String> findByLikeCompanyCode(@Param("CompanyCode") String CompanyCode);
+	@Query("Select c FROM Company c JOIN c.compstockmap p WHERE p.companyCode LIKE %:CompanyCode%")
+	List<Company> findByLikeCompanyCode(@Param("CompanyCode") String CompanyCode);
 	
 	@Query("Select q.name FROM Company c JOIN c.compstockmap p JOIN p.stockexchange q WHERE c.companyName = :CompanyName")
 	List<String> findListing(@Param("CompanyName") String CompanyName);
@@ -28,4 +28,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long>{
 	
 	@Query("Select c FROM Company c JOIN c.compstockmap p WHERE p.companyCode = :CompanyCode")
 	Company findByCompanyCode(@Param("CompanyCode") String CompanyCode);
+	
+	@Query("Select p.companyCode FROM Company c JOIN c.compstockmap p WHERE c.companyName = :CompanyName")
+	List<String> findCompanyCode(@Param("CompanyName") String CompanyName);
 }

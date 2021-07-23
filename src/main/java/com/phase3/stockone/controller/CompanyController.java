@@ -1,5 +1,6 @@
 package com.phase3.stockone.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,21 +57,25 @@ public class CompanyController {
 	}
 	
 	// User
-	@GetMapping("/likeCompany/{name}")
-	public List<String> getCompanyByName(@PathVariable String name){
-		List<String> listCompany = companyRepo.findByLikeCompanyName(name);
-		return listCompany;
+	@GetMapping("/likeCompany")
+	public List<Company> getCompanyByName(@RequestParam String name){
+		try {
+			return  companyRepo.findByLikeCompanyName(name);
+		} catch (Exception e) {
+			return new ArrayList<Company>();
+		}
+		
 	}
 	
 	// User
-	@GetMapping("/likeCompanyCode/{name}")
-	public List<String> getCompanyByCode(@PathVariable String name){
-		List<String> listCompany = companyRepo.findByLikeCompanyCode(name);
+	@GetMapping("/likeCompanyCode")
+	public List<Company> getCompanyByCode(@RequestParam String name){
+		List<Company> listCompany = companyRepo.findByLikeCompanyCode(name);
 		return listCompany;
 	}
 	
 	// TODO
-	@PostMapping("/getListedinExchange/{name}")
+	@GetMapping("/getListedinExchange/{name}")
 	public List<String> getListedinExchange(@PathVariable String name){
 		return companyRepo.findListing(name);
 	}
@@ -79,5 +84,12 @@ public class CompanyController {
 	@GetMapping("/getCompanies")
 	public List<Company> getCompanies(){
 		return companyRepo.findAll();
+	}
+	
+	@GetMapping("/getCompanyCode")
+	public List<String> getCompanyCode(@RequestParam String name){
+		List<String> s=  companyRepo.findCompanyCode(name);
+		System.out.println(s);
+		return s;
 	}
 }

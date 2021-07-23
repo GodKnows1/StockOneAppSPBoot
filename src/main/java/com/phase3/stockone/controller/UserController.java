@@ -126,10 +126,10 @@ public class UserController {
 	}
 	
 	// HAVE TO DELETE THIS ENDPOINT
-	@GetMapping("/getUserByName")
-	public ResponseEntity<UsersApp> getUserDetailsByName(@RequestParam String userName) {
-		System.out.println(userName);
-		UsersApp usersApp= userRepo.findByName(userName);
+	@PostMapping("/getUserByName")
+	public ResponseEntity<UsersApp> getUserDetailsByName(@RequestBody Map<String,String> userName) {
+//		System.out.println(userName);
+		UsersApp usersApp= userRepo.findByName(userName.get("userName"));
 		
 		return new ResponseEntity<>(usersApp,HttpStatus.OK);
 	}

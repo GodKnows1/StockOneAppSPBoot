@@ -47,7 +47,14 @@ public class StockPriceController {
 		return stockPriceRepo.findBycompanycode(companyCode);
 	}
 	
-	@GetMapping("/fetchToAndFrom")
+	@GetMapping("/getStockPriceFromCompanyName")
+	public List<StockPrice> getStockPriceFromCompanyName(@RequestParam String companyName) {
+		
+		Company company = companyRepo.findBycompanyName(companyName);
+		return stockPriceRepo.getStocksFromCompId(company.getId());
+	}
+	
+	@PostMapping("/fetchToAndFrom")
 	public List<StockPrice> fetchStockToAndFrom(@RequestBody Map<String, String> model) throws ParseException{
 		String fromdate= model.get("fromdate");
 		String todate= model.get("todate");

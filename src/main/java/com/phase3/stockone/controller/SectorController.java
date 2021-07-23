@@ -36,6 +36,11 @@ public class SectorController {
 		return sectorRepo.findBySectorName(name);
 	}
 	
+	@GetMapping("/getSectors")
+	public List<Sector> getSectors(){
+		return sectorRepo.findAll();
+	}
+	
 	@PostMapping("/addSector")
 	public int addSector(@RequestBody Sector sector) {
 		sectorRepo.save(sector);
@@ -68,7 +73,7 @@ public class SectorController {
 		return amt;
 	}
 	
-	@GetMapping("/getSectorPriceByPeriod")
+	@PostMapping("/getSectorPriceByPeriod")
 	public double getSectorPriceByPeriod(@RequestBody  Map<String, String> model) throws ParseException {
 		
 		Date fromdate= new SimpleDateFormat("yyyy-MM-dd").parse(model.get("fromdate"));
