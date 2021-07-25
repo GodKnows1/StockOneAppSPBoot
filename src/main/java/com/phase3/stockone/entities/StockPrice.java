@@ -72,9 +72,8 @@ public class StockPrice {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public StockPrice(long id, String exchangename, String companycode, Date datee, Time timee, float shareprice) {
+	public StockPrice(String exchangename, String companycode, Date datee, Time timee, float shareprice) {
 		super();
-		this.id = id;
 		this.exchangename = exchangename;
 		this.companycode = companycode;
 		this.datee = datee;

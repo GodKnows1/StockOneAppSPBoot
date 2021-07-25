@@ -36,7 +36,7 @@ public class StockExchangeController {
 		return 1;
 	}
 	
-	// get Exchanges -Done
+	// get Exchanges -Done -T
 	@GetMapping("/getStockExchanges")
 	public List<StockExchange> getStockExchanges(){
 		return stockExchRepo.findAll();
@@ -57,15 +57,16 @@ public class StockExchangeController {
 	/*
 	 * Company StockExchange Map Controller
 	 */
-	// Done
+	// Done -T
 	@PostMapping("/mapStockCompany")
-	public int mapStockCompany(@RequestBody Map<String, Object> model) {
+	public int mapStockCompany(@RequestBody Map<String, String> model) {
 		String name=(String)model.get("name");
 		String com_name=(String)model.get("com_name");
 		
 		Company company = companyRepo.findBycompanyName(com_name);
+		System.out.println(company.getCompanyName());
 		StockExchange stockExchange = stockExchRepo.findByName(name);
-		
+		System.out.println(stockExchange.getName());
 		CompanyStockExchange companyStockMap=new CompanyStockExchange();
 		companyStockMap.setCompany(company);
 		companyStockMap.setStockexchange(stockExchange);
@@ -73,7 +74,7 @@ public class StockExchangeController {
 		companyStockMap.setCompanyCode(companyCode);
 		
 		companyStockExchangeRepository.save(companyStockMap);
-
+		System.out.println(companyCode);
 		return 5;
 	}
 	

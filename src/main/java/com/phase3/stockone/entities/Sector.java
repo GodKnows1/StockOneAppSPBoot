@@ -23,6 +23,8 @@ public class Sector {
 	private Long id;
 
 
+
+
 	@Column(nullable = false)
 	private String sectorName;
 

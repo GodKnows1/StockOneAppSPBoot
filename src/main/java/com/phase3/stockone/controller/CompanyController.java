@@ -29,26 +29,27 @@ public class CompanyController {
 	@Autowired
 	private SectorRepository sectorRepo;
 	
-	// User
+	// User - T
 	@GetMapping("/company")
 	public Company getCompanyDetailsById(@RequestParam String name){
 		Company company = companyRepo.findBycompanyName(name);
 		return company;
 	}
-	// Add Company - Done
+	// Add Company - Done -T
 	@PostMapping("/addCompany")
 	public int addCompanyDetails(@RequestBody Company company) {
 		company.setSector(sectorRepo.findBySectorName(company.getSectorName()));
 		companyRepo.save(company);
 		return 1;
 	}
-	// Update Company -Done
+	// Update Company -Done -T
 	@PutMapping("/updateCompany")
 	public int updateCompanyDetails(@RequestBody Company company) {
+		company.setSector(sectorRepo.findBySectorName(company.getSectorName()));
 		companyRepo.save(company);
 		return 2;
 	}
-	// Delete Company -Done
+	// Delete Company -Done -T
 	@DeleteMapping("/deleteCompany/{name}")
 	public int deleteCompany(@PathVariable String name) {
 		Company company = companyRepo.findBycompanyName(name);
@@ -56,7 +57,7 @@ public class CompanyController {
 		return -1;
 	}
 	
-	// User
+	// User -T
 	@GetMapping("/likeCompany")
 	public List<Company> getCompanyByName(@RequestParam String name){
 		try {
@@ -80,7 +81,7 @@ public class CompanyController {
 		return companyRepo.findListing(name);
 	}
 	
-	// get All Companies- DONE
+	// get All Companies- DONE - T
 	@GetMapping("/getCompanies")
 	public List<Company> getCompanies(){
 		return companyRepo.findAll();

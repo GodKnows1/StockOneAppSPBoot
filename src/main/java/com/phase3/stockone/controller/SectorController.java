@@ -31,16 +31,19 @@ public class SectorController {
 	@Autowired
 	StockPriceRepository stockRepo;
 	
+	// T
 	@GetMapping("/getSectorDetailsByName")
 	public Sector getSectorByName(@RequestParam String name){
 		return sectorRepo.findBySectorName(name);
 	}
 	
+	// T
 	@GetMapping("/getSectors")
 	public List<Sector> getSectors(){
 		return sectorRepo.findAll();
 	}
 	
+	// T
 	@PostMapping("/addSector")
 	public int addSector(@RequestBody Sector sector) {
 		sectorRepo.save(sector);
