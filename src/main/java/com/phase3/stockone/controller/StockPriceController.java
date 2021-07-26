@@ -19,8 +19,8 @@ import com.phase3.stockone.dao.StockPriceRepository;
 import com.phase3.stockone.entities.Company;
 import com.phase3.stockone.entities.StockPrice;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@CrossOrigin
 public class StockPriceController {
 	
 	@Autowired

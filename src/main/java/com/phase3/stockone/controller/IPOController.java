@@ -19,8 +19,9 @@ import com.phase3.stockone.dao.IPODetailRepository;
 import com.phase3.stockone.entities.Company;
 import com.phase3.stockone.entities.IPODetail;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
+@CrossOrigin
 public class IPOController {
 
 	@Autowired

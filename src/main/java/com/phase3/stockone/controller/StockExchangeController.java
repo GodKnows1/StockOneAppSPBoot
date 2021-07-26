@@ -18,8 +18,8 @@ import com.phase3.stockone.entities.Company;
 import com.phase3.stockone.entities.CompanyStockExchange;
 import com.phase3.stockone.entities.StockExchange;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@CrossOrigin
 public class StockExchangeController {
 
 	@Autowired

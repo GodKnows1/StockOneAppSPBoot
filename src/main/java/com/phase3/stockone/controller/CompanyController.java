@@ -18,8 +18,8 @@ import com.phase3.stockone.dao.CompanyRepository;
 import com.phase3.stockone.dao.SectorRepository;
 import com.phase3.stockone.entities.Company;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@CrossOrigin
 public class CompanyController {
 
 	
