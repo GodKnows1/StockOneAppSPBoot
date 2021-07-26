@@ -33,8 +33,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.phase3.stockone.dao.UsersAppRepository;
 import com.phase3.stockone.entities.UsersApp;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
+@CrossOrigin
 public class UserController {
 	@Autowired
 	UsersAppRepository userRepo;
