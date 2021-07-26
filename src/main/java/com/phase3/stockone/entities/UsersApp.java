@@ -20,7 +20,15 @@ public class UsersApp {
 	private Boolean admin;
 	private String mobileNum;
 	
+	//
+	private String role;
 	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	public long getId() {
 		return id;
 	}
@@ -63,7 +71,7 @@ public class UsersApp {
 	public void setMobileNum(String mobileNum) {
 		this.mobileNum = mobileNum;
 	}
-	public UsersApp(String name, String password, String email, Boolean confirmed, Boolean admin, String mobileNum) {
+	public UsersApp(String name, String password, String email, Boolean confirmed, Boolean admin, String mobileNum,String role) {
 		super();
 		this.name = name;
 		this.password = password;
@@ -71,6 +79,7 @@ public class UsersApp {
 		this.confirmed = confirmed;
 		this.admin = admin;
 		this.mobileNum = mobileNum;
+		this.role=role;
 	}
 	public UsersApp() {
 		super();

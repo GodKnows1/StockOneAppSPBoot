@@ -29,28 +29,28 @@ public class StockoneApplication {
 		SpringApplication.run(StockoneApplication.class, args);
 	}
 	
-//	@Bean
-//	public CommandLineRunner loadData(CompanyController c,StockPriceController st, StockExchangeController s,IPOController i,SectorController sc) {
-//	    return (args) -> {
-//	        // save a couple of customers
-//	    	sc.addSector(new Sector("JACK", "Bauer"));
-////	        r.save(new Sector("JACK", "Bauer"));
-////	        System.out.println(r.findAll());
-//	    	c.addCompanyDetails(new Company("ITC", 123.9, "ABC", "XYZ", "Hell", "JACK"));
-////	        c.save(new Company("ITC", 123.9, "ABC", "XYZ", "Hell", "JACK"));
-////	        System.out.print(c.findAll());
-//	    	s.addStockExchange(new StockExchange("BSE","PAISA","BOM","Rem"));
-////	        s.save(new StockExchange("BSE","PAISA","BOM","Rem"));
-//	    	Map<String,String> map=new HashMap<String,String>(); 
-//	    	map.put("com_name", "ITC");
-//	    	map.put("name", "BSE");
-//	    	s.mapStockCompany(map);
-//	    	
-////	    	i.addIPODetails(new IPODetail(20.0, 11l, "2020-01-01 10:09:09", "ITC", "hihi"));
-//	    	
-//	    	st.addStockPrice(new StockPrice("BSE", "ITCBSE2", new SimpleDateFormat("yyyy-MM-dd").parse("2019-09-11"), new Time(10,20,30), 90.9f));
-//	        
-//	    };
-//	}
+	@Bean
+	public CommandLineRunner loadData(CompanyController c,StockPriceController st, StockExchangeController s,IPOController i,SectorController sc) {
+	    return (args) -> {
+	        // save a couple of customers
+	    	sc.addSector(new Sector("IT", "COMP"));
+//	        r.save(new Sector("JACK", "Bauer"));
+//	        System.out.println(r.findAll());
+	    	c.addCompanyDetails(new Company("ITC", 123.9, "ABC", "XYZ", "PQR", "IT"));
+//	        c.save(new Company("ITC", 123.9, "ABC", "XYZ", "Hell", "JACK"));
+//	        System.out.print(c.findAll());
+	    	s.addStockExchange(new StockExchange("BSE","MONEY","BOM","Rem"));
+//	        s.save(new StockExchange("BSE","PAISA","BOM","Rem"));
+	    	Map<String,String> map=new HashMap<String,String>(); 
+	    	map.put("com_name", "ITC");
+	    	map.put("name", "BSE");
+	    	s.mapStockCompany(map);
+	    	
+//	    	i.addIPODetails(new IPODetail(20.0, 11l, "2020-01-01 10:09:09", "ITC", "hihi"));
+	    	
+	    	st.addStockPrice(new StockPrice("BSE", "ITCBSE2", new SimpleDateFormat("yyyy-MM-dd").parse("2019-09-11"), new Time(10,20,30), 90.9f));
+	        
+	    };
+	}
 
 }

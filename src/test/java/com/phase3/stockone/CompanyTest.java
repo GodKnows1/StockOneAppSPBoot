@@ -57,9 +57,9 @@ class CompanyTest {
 	@Test
 	 @Order(2)  
 	void getSec() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/getSectorDetailsByName?name=JACK"))
+		mvc.perform(MockMvcRequestBuilders.get("/getSectorDetailsByName?name=IT"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.brief").value("Bauer"));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.brief").value("COMP"));
 	}
 	
 	// Companies
@@ -83,7 +83,7 @@ class CompanyTest {
 	 @Order(4)  
 	void addCom() throws Exception {
 		
-		String json="{\"companyName\":\"POP\",\"turnover\":12040,\"ceo\":\"Ayush\",\"boardOfDirectors\":\"Ayush Faddo\",\"companyBrief\":\"veryRich\",\"sectorName\":\"JACK\"}";
+		String json="{\"companyName\":\"POP\",\"turnover\":12040,\"ceo\":\"Ayush\",\"boardOfDirectors\":\"Ayush Faddo\",\"companyBrief\":\"veryRich\",\"sectorName\":\"IT\"}";
 		MvcResult m=mvc.perform(MockMvcRequestBuilders.post("/addCompany")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))
@@ -96,7 +96,7 @@ class CompanyTest {
 	 @Order(5)  
 	void updateCom() throws Exception {
 		
-		String json="{\"id\":2,\"companyName\":\"ITC\",\"turnover\":144,\"ceo\":\"ABC\",\"boardOfDirectors\":\"XYZ\",\"companyBrief\":\"Hell\",\"sectorName\":\"JACK\"}";
+		String json="{\"id\":2,\"companyName\":\"ITC\",\"turnover\":144,\"ceo\":\"ABC\",\"boardOfDirectors\":\"XYZ\",\"companyBrief\":\"Hell\",\"sectorName\":\"IT\"}";
 		MvcResult  m=mvc.perform(MockMvcRequestBuilders.put("/updateCompany")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))
@@ -233,7 +233,7 @@ class CompanyTest {
 	@Test
 	 @Order(20)  
 	void getIPOChrono() throws Exception {
-		String json="{\"companyName\":\"POP\",\"turnover\":12040,\"ceo\":\"Ayush\",\"boardOfDirectors\":\"Ayush Faddo\",\"companyBrief\":\"veryRich\",\"sectorName\":\"jac\"}";
+		String json="{\"companyName\":\"POP\",\"turnover\":12040,\"ceo\":\"Ayush\",\"boardOfDirectors\":\"Ayush Faddo\",\"companyBrief\":\"veryRich\",\"sectorName\":\"its\"}";
 	mvc.perform(MockMvcRequestBuilders.post("/addCompany")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))
@@ -372,7 +372,7 @@ class CompanyTest {
 	 @Order(29)  
 	void getsec() throws Exception {
 		
-		mvc.perform(MockMvcRequestBuilders.get("/getListofCompaniesinSector?sectorName=JACK"))
+		mvc.perform(MockMvcRequestBuilders.get("/getListofCompaniesinSector?sectorName=IT"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$[0]").value("ITC"));
 	}
@@ -381,7 +381,7 @@ class CompanyTest {
 	 @Order(30)  
 	void getsecp() throws Exception { 
 		
-		mvc.perform(MockMvcRequestBuilders.get("/getSectorPriceByName?sectorName=JACK"))
+		mvc.perform(MockMvcRequestBuilders.get("/getSectorPriceByName?sectorName=IT"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$").value(90.9000015258789d));
 	}
@@ -391,7 +391,7 @@ class CompanyTest {
 	void getSectorPriceByPeriod() throws Exception { 
 		String json="{\"fromdate\":\"2011-01-01\",\r\n"
 				+ "    \"todate\":\"2020-05-01\",\r\n"
-				+ "    \"sectorName\":\"JACK\"}";
+				+ "    \"sectorName\":\"IT\"}";
 		mvc.perform(MockMvcRequestBuilders.post("/getSectorPriceByPeriod")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))

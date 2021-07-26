@@ -1,5 +1,6 @@
 package com.phase3.stockone.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +34,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.phase3.stockone.dao.UsersAppRepository;
 import com.phase3.stockone.entities.UsersApp;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
+import com.sendgrid.SendGrid;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
 
 
 @RestController
@@ -39,66 +48,91 @@ import com.phase3.stockone.entities.UsersApp;
 public class UserController {
 	@Autowired
 	UsersAppRepository userRepo;
+	
+	@Autowired
+	private JwtUserDetailsService userDetailsService;
 
 	// Add User using confirm
 //	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(value = "/setuserapi", method = RequestMethod.POST)
-	public String Stringreactuserapi(@RequestBody UsersApp user) throws AddressException, MessagingException {
-
-		UsersApp usrsaved = userRepo.save(user);
+	public String Stringreactuserapi(@RequestBody UsersApp user) throws AddressException, MessagingException, IOException {
+		UsersApp user1= userDetailsService.save(user);
+		
+//		UsersApp usrsaved = userRepo.save(user);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Responded", "UserController");
 		headers.add("Access-Control-Allow-Origin", "*");
-		sendemail(user.getId());
-		return user.toString();
+		sendemail(user1.getId());
+		return user1.toString();
 
 	}
 
 	// EMAIL...
-	public void sendemail(Long userid) throws AddressException, MessagingException {
-
+	public void sendemail(Long userid) throws AddressException, MessagingException,IOException {
+		
 		UsersApp user = userRepo.getById(userid);
+		Email from = new Email("gpathak161999@gmail.com");
+	    String subject = "Sending with SendGrid is Fun";
+	    Email to = new Email(user.getEmail());
+	    Content content = new Content("text/html", "<h1><a href =\"http://127.0.0.1:8080/confirmuser/" + userid + "/\"> Click to confirm </a></h1>");
+	    Mail mail = new Mail(from, subject, to, content);
 
-		final String username = "ayushtb7@gmail.com";
-		final String password = "springboot7A#";
+	    SendGrid sg = new SendGrid("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");
+	    Request request = new Request();
+	    try {
+	      request.setMethod(Method.POST);
+	      request.setEndpoint("mail/send");
+	      request.setBody(mail.build());
+	      Response response = sg.api(request);
+	      System.out.println(response.getStatusCode());
+	      System.out.println(response.getBody());
+	      System.out.println(response.getHeaders());
+	    } catch (Exception ex) {
+	      throw ex;
+	    }
 
-		Properties prop = new Properties();
-		prop.put("mail.smtp.host", "smtp.gmail.com");
-		prop.put("mail.smtp.port", "465");
-		prop.put("mail.smtp.auth", "true");
-		prop.put("mail.smtp.starttls.enable", "true");
-		prop.put("mail.smtp.starttls.required", "true");
-		prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
-		prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); // TLS
-
-		Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
-			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-				return new javax.mail.PasswordAuthentication(username, password);
-			}
-		});
-
-		try {
-
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("sftrainerram@gmail.com"));
-			// message.setRecipients(
-			// Message.RecipientType.TO,
-			// InternetAddress.parse("sftrainerram@gmail.com")
-			// );
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
-			message.setSubject("USer confirmation email");
-			// message.setText("Dear Mail Crawler,"
-			// + "\n\n Please do not spam my email!");
-			message.setContent(
-					"<h1><a href =\"http://127.0.0.1:8080/confirmuser/" + userid + "/\"> Click to confirm </a></h1>",
-					"text/html");
-			Transport.send(message);
-
-			System.out.println("Done");
-
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
+//		UsersApp user = userRepo.getById(userid);
+//
+//		final String username = "ayushtb7@gmail.com";
+//		final String password = "springboot7A#";
+//
+//		Properties prop = new Properties();
+//		prop.put("mail.smtp.host", "smtp.gmail.com");
+//		prop.put("mail.smtp.port", "465");
+//		prop.put("mail.smtp.auth", "true");
+//		prop.put("mail.smtp.starttls.enable", "true");
+//		prop.put("mail.smtp.starttls.required", "true");
+//		prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
+//		prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); // TLS
+//
+//		Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
+//			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+//				return new javax.mail.PasswordAuthentication(username, password);
+//			}
+//		});
+//
+//		try {
+//
+//			Message message = new MimeMessage(session);
+//			message.setFrom(new InternetAddress("sftrainerram@gmail.com"));
+//			// message.setRecipients(
+//			// Message.RecipientType.TO,
+//			// InternetAddress.parse("sftrainerram@gmail.com")
+//			// );
+//			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
+//			message.setSubject("USer confirmation email");
+//			// message.setText("Dear Mail Crawler,"
+//			// + "\n\n Please do not spam my email!");
+//			message.setContent(
+//					"<h1><a href =\"http://127.0.0.1:8080/confirmuser/" + userid + "/\"> Click to confirm </a></h1>",
+//					"text/html");
+//			Transport.send(message);
+//
+//			System.out.println("Done");
+//
+//		} catch (MessagingException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	// CONFIRMING...
