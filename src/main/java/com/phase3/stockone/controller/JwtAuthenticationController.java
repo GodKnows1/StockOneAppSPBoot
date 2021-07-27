@@ -43,9 +43,13 @@ public class JwtAuthenticationController {
 	//user username for authenticate but
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		UsersApp datApp=userrepo.findByName(authenticationRequest.getUsername());
+		
+		if(datApp.getConfirmed()==false) {
+			return ResponseEntity.ok(new JwtResponse("not confirmed",datApp));
+		}
+		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 
