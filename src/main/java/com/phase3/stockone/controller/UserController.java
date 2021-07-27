@@ -51,6 +51,9 @@ public class UserController {
 	
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
+	
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
 
 	// Add User using confirm
 //	@CrossOrigin(origins = "http://localhost:3000")
@@ -77,7 +80,7 @@ public class UserController {
 	    Content content = new Content("text/html", "<h1><a href =\"http://127.0.0.1:8080/confirmuser/" + userid + "/\"> Click to confirm </a></h1>");
 	    Mail mail = new Mail(from, subject, to, content);
 
-	    SendGrid sg = new SendGrid("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");
+	    SendGrid sg = new SendGrid(System.getenv("SD_KEY"));
 	    Request request = new Request();
 	    try {
 	      request.setMethod(Method.POST);
@@ -191,6 +194,20 @@ public class UserController {
 	
 	@PutMapping("/updateUser")
 	public int updateUserDetails(@RequestBody UsersApp user) {
+		
+		UsersApp newUser = new UsersApp();
+		//newUser.setname(user.getUsername());
+		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+	    newUser.setName(user.getName());
+//	    newUser.setPassword(user.getPassword());
+	    newUser.setEmail(user.getEmail());
+		newUser.setRole("admin");
+		newUser.setMobileNum(user.getMobileNum());
+		newUser.setAdmin(user.getAdmin());
+		newUser.setConfirmed(user.getConfirmed());
+		newUser.setId(user.getId());
+		userRepo.save(newUser);
+		
 		userRepo.save(user);
 		return 202;
 	}
