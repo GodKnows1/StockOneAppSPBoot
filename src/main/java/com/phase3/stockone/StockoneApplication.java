@@ -39,6 +39,7 @@ public class StockoneApplication {
 	    	c.addCompanyDetails(new Company("ITC", 123.9, "ABC", "XYZ", "PQR", "IT"));
 //	        c.save(new Company("ITC", 123.9, "ABC", "XYZ", "Hell", "JACK"));
 //	        System.out.print(c.findAll());
+		sc.addSector(new Sector("health", "money"));
 	    	s.addStockExchange(new StockExchange("BSE","MONEY","BOM","Rem"));
 //	        s.save(new StockExchange("BSE","PAISA","BOM","Rem"));
 	    	Map<String,String> map=new HashMap<String,String>(); 
