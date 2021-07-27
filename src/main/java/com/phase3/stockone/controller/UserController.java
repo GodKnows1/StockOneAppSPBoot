@@ -77,7 +77,7 @@ public class UserController {
 		Email from = new Email("gpathak161999@gmail.com");
 	    String subject = "Sending with SendGrid is Fun";
 	    Email to = new Email(user.getEmail());
-	    Content content = new Content("text/html", "<h1><a href =\"https://stockoneapp-react.herokuapp.com/confirmuser/" + userid + "/\"> Click to confirm </a></h1>");
+	    Content content = new Content("text/html", "<h1><a href =\"https://stockoneapp-boot.herokuapp.com/confirmuser/" + userid + "/\"> Click to confirm </a></h1>");
 	    Mail mail = new Mail(from, subject, to, content);
 
 	    SendGrid sg = new SendGrid(System.getenv("SD_KEY"));
